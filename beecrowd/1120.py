@@ -1,26 +1,44 @@
 
+class ContractValue:
+
+    def __init__(self, failed_digit, true_value, value_is_null=True):
+        self.failed_digit = failed_digit
+        self.true_value = true_value
+        self.value_is_null = value_is_null
+        self.final_value = ""
+
+    def get_final_value(self):
+        for number in self.true_value:
+            if number != self.failed_digit:
+                self.value_is_null = False
+                self.final_value += number
+
+        return self.final_value
+
+
+
+
 if __name__ == "__main__":
 
-    inp = input()
+    flawed_digit_and_agreed_value = input()
 
-    while inp != "0 0":
-        x = inp.split()
-        y = x[1]
+    while flawed_digit_and_agreed_value != "0 0":
 
-        z = ""
-        is0 = True
+        flawed_digit_and_agreed_value = flawed_digit_and_agreed_value.split()
+        flawed_digit = flawed_digit_and_agreed_value[0]
+        agreed_value = flawed_digit_and_agreed_value[1]
 
-        for i in y:
-            if i != x[0]:
-                is0 = False
-                z += i
+        trueContract = ContractValue(flawed_digit, agreed_value)
 
-        if is0:
+        final_value = trueContract.get_final_value()
+
+
+        if trueContract.value_is_null:
             print(0)
         else:
-            z = int(z)
-            print(z)
+            final_value = int(final_value)
+            print(final_value)
 
 
 
-        inp = input()
+        flawed_digit_and_agreed_value = input()
