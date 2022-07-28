@@ -5,7 +5,7 @@ export class Kata {
     for(let i = 0; i< str.length; i++)
       {
         let letter:string = str[i];
-        if(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || valetter == 'u')
+        if(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u')
             numberOfVowels++;
       }
     
