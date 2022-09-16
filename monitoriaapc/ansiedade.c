@@ -3,7 +3,7 @@
 
 int acabouConsulta(int posicaoResposta)
 {
-	//printf("%d\n",posicaoResposta);
+	
 	if(posicaoResposta == 10)
 		return 1;
 
@@ -21,7 +21,7 @@ int main()
 		if(resposta[0] == 's' && resposta[1] == 'i' && resposta[2] == 'm')
 		{
 			contaSim++;
-			//printf("SIM # %d\n",contaSim);
+			
 		}
 
 		numeroResposta++;
