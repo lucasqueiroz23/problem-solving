@@ -1,0 +1,214 @@
+# Ler 3 números e fazer as operações: ADD, SUB, XOR, OR, AND, MASK, SLL, SRL.
+# Feito por Lucas Henrique Lima de Queiroz no dia 5/12/2022.
+
+.data
+	msgADD: .asciiz "ADD: "
+	msgSUB: .asciiz "SUB: "
+	msgAND: .asciiz "AND: "
+	msgOR:  .asciiz "OR: "
+	msgXOR: .asciiz "XOR: "
+	msgMASK: .asciiz "MASK: "
+	msgSLL: .asciiz "SLL("
+	msgSRL: .asciiz "SRL("
+	fechaMsgSLLeSRL: .asciiz "): "
+	quebraLinha: .asciiz "\n"
+	
+.text
+main:
+	jal ler_inteiros
+	jal soma
+	jal subtracao
+	jal op_and
+	jal op_or
+	jal op_xor
+	jal mask
+	jal op_sll
+	jal op_srl
+	
+	j exit
+
+ler_inteiros:
+
+	addi $v0, $zero, 5 # ler inteiro a
+	syscall
+	move $s0, $v0 # a=> s0
+	
+	addi $v0, $zero, 5 # ler inteiro b
+	syscall
+	move $s1, $v0 # b=> s1
+	
+	addi $v0, $zero, 5 # ler inteiro c
+	syscall
+	move $s2, $v0 # c => s2
+	
+	j voltarParaMain
+	
+voltarParaMain:
+	jr $ra
+	
+soma:
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgADD # a0 = msgADD
+	syscall
+
+	add $a0, $s0, $s1 # a0 = a+b
+	addi $v0, $zero, 1 # printar int
+	syscall 
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	
+	j voltarParaMain
+
+subtracao:
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgSUB # a0 = msgSUB
+	syscall
+
+	sub $a0, $s0, $s1 # a0 = a+b
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	
+	j voltarParaMain
+	
+op_and:
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgAND # a0 = msgAND
+	syscall
+	
+	and $a0, $s0, $s1 # a0 = s0(a) & s1(b)
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	j voltarParaMain
+op_or:
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgOR # a0 = msgOR
+	syscall
+	
+	or $a0, $s0, $s1 # a0 = s0(a) OR s1(b)
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	j voltarParaMain
+
+op_xor:
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgXOR # a0 = msgXOR
+	syscall
+	
+	xor $a0, $s0, $s1 # a0 = s0(a) XOR s1(b)
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	j voltarParaMain
+
+mask:
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgMASK # a0 = msgMASK
+	syscall
+	
+	andi $a0, $s2, 31 # a0 = c & 31
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	move $s2, $a0 # c = c & 31
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	
+	move $a0, $zero
+	j voltarParaMain
+
+op_sll:
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgSLL # a0 = msgSLL
+	syscall
+	
+	add $a0, $zero, $s2 # a0 = 0 + (c & 31) = c & 31
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, fechaMsgSLLeSRL # a0 = fechaMsgSLLeSRL
+	syscall
+	
+	move $t0, $s2 # t0 = c & 31
+	addi $t1, $zero, 1 # t1 = 1
+	
+	descobrirSLL:
+		
+		mul $t1, $t1, 2 # t1 = s2 * t1
+		
+		sub $t0, $t0, 1 # t0--
+		bne $t0, 0, descobrirSLL # if(t0 != 0 ) goto descobrirSLL
+	
+	
+	mul $a0, $s0, $t1 # a0 = sll(a, c & 31) = a * 2 elevado a t1, onde t1 = mask(a,b)
+	move $s3, $t1 # s3 = 2 elevado a t1
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	j voltarParaMain
+
+op_srl:
+	addi $v0, $zero, 4 # printar string
+	la $a0, msgSRL # a0 = msgSRL
+	syscall
+	
+	add $a0, $zero, $s2 # a0 = 0 + (c & 31) = c & 31
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, fechaMsgSLLeSRL # a0 = fechaMsgSLLeSRL
+	syscall
+	
+	div $a0, $s1, $s3 # a0 = a / 2 elevado a mask(a,b)
+	addi $v0, $zero, 1 # printar int
+	syscall
+	
+	addi $v0, $zero, 4 # printar string
+	la $a0, quebraLinha # a0 = '\n'
+	syscall
+	
+	move $a0, $zero
+	j voltarParaMain
+
+exit:
+	addi $v0, $zero, 10 # fechar o programa
+	syscall
+	
