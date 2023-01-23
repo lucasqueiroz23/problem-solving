@@ -1,0 +1,55 @@
+# Programa que deve ler uma entrada inteira 'n' e duas entradas char[] a e b, representadas aqui por 'gabarito' e 'resposta.
+# 'n' representa o tamanho das duas strings. O programa deve ter como output o número de vezes em que, sendo 'i' uma posição
+# no vetor de char, a[i] == b[i].
+# Feito por Lucas Henrique Lima de Queiroz no dia 08/01/2023
+
+.data
+	gabarito: .space 1028
+	resposta: .space 1028
+	breakLine: .asciiz "\n"
+.text
+main:
+	li $v0, 5 # read int
+	syscall
+	
+	move $s0, $v0 # s0 = string length
+	addi $a1, $s0, 2 # a1 = string length + null terminator + \n
+	
+	li $v0, 8 # read string for syscall
+	
+	la $a0, gabarito # read string 'gabarito' and store in a0
+
+	syscall
+	
+	move $s1, $a0 # s1 = content of 'gabarito'
+	
+	la $a0, resposta # read string 'resposta' and store in a0
+	syscall
+	
+	move $s2,$a0 # s2 = content of 'resposta'
+	
+	jal compare_strings
+	
+	li $v0, 1 # print int
+	syscall
+	
+	li $v0, 10 # exit program
+	syscall
+
+compare_strings:
+	move $s3, $zero # s3 = 0
+	move $t0, $zero # t0 = 0
+	move $a0, $zero # a0 = 0
+	loop:
+		lb $t2, 0($s1) # t2 = gabarito[i] 
+		lb $t3, 0($s2) # t3 = resposta[i]
+		bne $t2, $t3, unequal_char # if (t2 != t3) goto unequal_char;
+		addi $a0, $a0, 1 # a0++;
+		
+		unequal_char:
+		addi $t0, $t0, 1 # t0++;
+		addi $s1, $s1, 1 # i++;
+		addi $s2, $s2, 1 # i++;
+		slt $t1, $t0, $s0 
+		beq $t1, 1, loop # if(t0 < string length) goto loop;
+		jr $ra 
