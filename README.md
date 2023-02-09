@@ -1,3 +1,3 @@
-# cp-problems
+# problem-solving
 
-This repo is dedicated to my competitive programming studies. Some of the problems I solve are meant to be solved fast, without bothering if the code is readable or not. Others are meant to be solved with a clean code, without bothering if I did it in 5 or 50 minutes. 
+Just a collection of programming exercises I have completed in order to develop my problem solving skills. Some of these are also meant to be done with a clean code, but some aren't. That's why you can find some files with, for instance, classes, and others with variables that have stupid names (e.g., int n).
