@@ -23,7 +23,6 @@ std::string bodyIsIdle(){
 
 int main(){
   std::cin >> n;
-  int sum = 0;
 
   while(n--){
     getForceVector();
