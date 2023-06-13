@@ -8,7 +8,7 @@ int partition(int* v,int leftIndex, int rightIndex) {
         {
 
             int temporaryValue = v[k];
-            v[k] = v[j]
+            v[k] = v[j];
             v[j] = temporaryValue;
             j++;
 
