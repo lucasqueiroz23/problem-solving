@@ -17,8 +17,7 @@ int searchInsert(int* nums, int numsSize, int target){
     }
     if(target > nums[right]) return right + 1;
     if(target < nums[left]) {
-       if(left == 0) return left; 
-       else return left - 1;
+        return left == 0 ? left : left - 1; 
     }
     return right;
 }
