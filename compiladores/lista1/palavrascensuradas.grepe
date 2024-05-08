@@ -1,0 +1,1 @@
+(\<XXX[[:alpha:]]+\>|\<[[:alpha:]]+XXX[[:alpha:]]+\>|\<[[:alpha:]]+XXX\>|XXX)
