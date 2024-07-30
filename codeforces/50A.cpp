@@ -7,6 +7,6 @@ int main() {
 
 	std::cin >> n >> m;
 
-	std::cout << (int)floor((double)(m * n)/2)  << "\n";
+	std::cout << (int)floor((double)(m * n)/d)  << "\n";
 	return 0;
 }
