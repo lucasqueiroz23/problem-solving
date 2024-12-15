@@ -8,7 +8,9 @@ public:
 
         for(int i = 0; i < nums.size(); i++){
             int rem = target - nums[i];
-            if(m[rem]) return {i, m[rem]};
+            if(m[rem] && i != m[rem]) {
+                return {i, m[rem]};
+            }
         }
 
         return {}; 
