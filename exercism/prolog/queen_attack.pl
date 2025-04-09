@@ -24,5 +24,4 @@ attack((FromX, FromY), (ToX, ToY)):-
 
 % diagonal
 attack((FromX, FromY), (ToX, ToY)):-
-    abs(FromX - ToX) = abs(FromY - ToY) ,
-    abs(FromX - ToX) >= 0 . 
+    abs(FromX - ToX) =:= abs(FromY - ToY) .
