@@ -11,4 +11,4 @@ main = do
   let a = read idadeA :: Int
   let b = read idadeB :: Int
 
-  putStrLn $ show (preco a + preco b)
+  putStrLn $ show $ preco a + preco b

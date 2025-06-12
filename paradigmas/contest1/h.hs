@@ -3,7 +3,7 @@ atendidos p m xs
   | expected odd p && expected even m = 'S'
   | otherwise = 'N'
   where
-    expected func n = length (filter func xs) == n
+    expected criteria n = length (filter criteria xs) == n
 
 main = do
   n <- getLine
@@ -16,4 +16,5 @@ main = do
   minput <- getLine
   let m = read minput :: Int
 
-  putStrLn $ [atendidos p m ts]
+  putChar $ atendidos p m ts
+  putChar '\n'

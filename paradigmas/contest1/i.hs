@@ -7,7 +7,7 @@ getValues day numberOfDaysLeft numberOfAccessUntilNow = do
 
   otherDays <- getValues (day + 1) (numberOfDaysLeft - 1) accesses
 
-  return $ if accesses >= 1000000 then day else otherDays
+  if accesses >= 1000000 then return day else return otherDays
 
 main = do
   numberOfDays <- getLine
@@ -17,4 +17,4 @@ main = do
 
   let x = if daysPassed /= (-1) then daysPassed + 1 else 0
 
-  putStrLn $ show $ x
+  putStrLn $ show x
