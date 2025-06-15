@@ -3,14 +3,16 @@ module Questao1 where
 import Data.Char
 
 count :: String -> Int
-count phrase = sum [if isLower $ last x then 1 else 0 | x <- words phrase]
+count = length . filter isLower . map head . map reverse . words
 
 inverses :: [Int] -> [Double]
-inverses xs = [1 / fromIntegral x | x <- filter (/= 0) xs]
+inverses = map (\x -> 1 / fromIntegral x) . filter (/= 0)
 
--- odds :: Int -> Int
+odds :: Int -> Int
+odds = length . filter (odd . digitToInt) . show
 
 palindromes :: String -> Int
-palindromes phrase = sum [if x == reverse x then 1 else 0 | x <- words phrase]
+palindromes = length . filter (\w -> w == reverse w) . words
 
--- isOctNumber :: Int -> Bool
+isOctNumber :: Int -> Bool
+isOctNumber = foldr (&&) True . map (<= 7) . map digitToInt . show
